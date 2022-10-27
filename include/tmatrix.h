@@ -84,10 +84,14 @@ public:
     // индексация
     T& operator[](size_t ind)
     {
+        if (ind < 0 || ind >= sz)
+            throw - 1;
         return pMem[ind];
     }
     const T& operator[](size_t ind) const
     {
+        if (ind < 0 || ind >= sz)
+            throw - 1;
         return pMem[ind];
     }
     // индексация с контролем
@@ -122,7 +126,7 @@ public:
     }
     bool operator!=(const TDynamicVector& v) const noexcept
     {
-        if (*this == &v)
+        if (*this == v)
         {
             return false;
         }
@@ -231,12 +235,16 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
 public:
   TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
   {
+      if (sz > MAX_MATRIX_SIZE)
+      {
+          throw -1;
+      }
       for (size_t i = 0; i < sz; i++)
       {
           pMem[i] = TDynamicVector<T>(sz);
       }
   }
- // TDynamicMatrix(const TDynamicVector<TDynamicVector<T>>& V) : TDynamicVector<TDynamicVector<T>>(V) {}
+  TDynamicMatrix(const TDynamicVector<TDynamicVector<T>>& V) : TDynamicVector<TDynamicVector<T>>(V) {}
 
   using TDynamicVector<TDynamicVector<T>>::operator[];
 
