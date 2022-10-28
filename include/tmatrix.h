@@ -284,7 +284,7 @@ public:
   {
       if (sz != m.sz)
       {
-          throw exp("Tak nelsya");
+          throw "Tak nelsya";
       }
       TDynamicMatrix tdm(sz);
       for (int i = 0; i < sz; i++)
